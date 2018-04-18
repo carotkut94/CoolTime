@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 import datetime
+import calendar
 from flask import jsonify
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ def get():
     return jsonify({"Date": date,
                     "YearDay": date.timetuple().tm_yday,
                     "WeekDay": date.timetuple().tm_wday,
+                    "WeekDayName": calendar.day_name[date.timetuple().tm_wday],
                     "Hour": date.timetuple().tm_hour,
                     "Minute": date.timetuple().tm_min,
                     "Seconds": date.timetuple().tm_sec,
