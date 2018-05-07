@@ -49,7 +49,7 @@ def getyoutube():
         streams_info.append((s.resolution, s.extension, s.get_filesize(), s.url))
 
     for a in audioStream:
-        audio_info.append((a.bitrate, a.extension, a.get_filesize()))
+        audio_info.append((a.bitrate, a.extension, a.get_filesize(), a.url))
 
     videoInfo = {
         "title": video.title,
