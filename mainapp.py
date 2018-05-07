@@ -42,9 +42,14 @@ def getyoutube():
     video = pafy.new(urls)
 
     streams = video.streams
+    audioStream = video.audiostreams
     streams_info = []
+    audio_info = []
     for s in streams:
         streams_info.append((s.resolution, s.extension, s.get_filesize(), s.url))
+
+    for a in audioStream:
+        audio_info.append((a.bitrate, a.extension, a.get_filesize()))
 
     videoInfo = {
         "title": video.title,
@@ -52,7 +57,9 @@ def getyoutube():
         "url": "http://www.youtube.com/watch?v=" + video.videoid,
         "duration": video.duration,
         "thumbnail": video.thumb,
-        "streams": streams_info
+        "streams": streams_info,
+        "audio":audio_info
+
     }
     return jsonify({"success": True, "video": videoInfo})
 
