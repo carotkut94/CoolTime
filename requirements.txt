@@ -1,2 +1,4 @@
 Flask
 gunicorn
+youtube_dl
+pafy

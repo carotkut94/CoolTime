@@ -3,6 +3,7 @@ from flask import request
 import datetime
 import calendar
 from flask import jsonify
+import pafy
 
 app = Flask(__name__)
 
@@ -33,6 +34,27 @@ def get():
                     "Month": date.timetuple().tm_mon,
                     "Year": date.timetuple().tm_year
                     })
+
+
+@app.route('/youtube')
+def getyoutube():
+    urls = request.args.get('url')
+    video = pafy.new(urls)
+
+    streams = video.streams
+    streams_info = []
+    for s in streams:
+        streams_info.append((s.resolution, s.extension, s.get_filesize(), s.url))
+
+    videoInfo = {
+        "title": video.title,
+        "author": video.author,
+        "url": "http://www.youtube.com/watch?v=" + video.videoid,
+        "duration": video.duration,
+        "thumbnail": video.thumb,
+        "streams": streams_info
+    }
+    return jsonify({"success": True, "video": videoInfo})
 
 
 if __name__ == '__main__':
