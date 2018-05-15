@@ -56,7 +56,7 @@ def getyoutube():
         "audio": audio_info
 
     }
-    return jsonify({"success": True, "video": videoinfo})
+    return jsonify({"success": True, "stream": videoinfo})
 
 
 if __name__ == '__main__':
