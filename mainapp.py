@@ -36,32 +36,27 @@ def get():
                     })
 
 
-@app.route('/youtube')
+@app.route('/youtubemp3')
 def getyoutube():
     urls = request.args.get('url')
     video = pafy.new(urls)
 
-    streams = video.streams
     audioStream = video.audiostreams
-    streams_info = []
     audio_info = []
-    for s in streams:
-        streams_info.append((s.resolution, s.extension, s.get_filesize(), s.url))
 
     for a in audioStream:
         audio_info.append((a.bitrate, a.extension, a.get_filesize(), a.url))
 
-    videoInfo = {
+    videoinfo = {
         "title": video.title,
         "author": video.author,
         "url": "http://www.youtube.com/watch?v=" + video.videoid,
         "duration": video.duration,
         "thumbnail": video.thumb,
-        "streams": streams_info,
-        "audio":audio_info
+        "audio": audio_info
 
     }
-    return jsonify({"success": True, "video": videoInfo})
+    return jsonify({"success": True, "video": videoinfo})
 
 
 if __name__ == '__main__':
